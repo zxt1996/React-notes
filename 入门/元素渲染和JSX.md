@@ -6,26 +6,31 @@ const element = <h1>Hello, world</h1>;
 ReactDOM.render(element, document.getElementById('root'));
 ```
 # 2.JSX
-将HTML标记转换为react元素
-- 可以在大括号内放置任何有效的JS表达式
+- 在javaScript代码中直接写HTML标记
 ```
-function formatName(user) {
-  return user.firstName + ' ' + user.lastName;
-}
-
-const user = {
-  firstName: 'Harper',
-  lastName: 'Perez'
-};
-
-const element = (
-  <h1>
-    Hello, {formatName(user)}!
-  </h1>
-);
-
-ReactDOM.render(
-  element,
-  document.getElementById('root')
-);
+const name = 'zxt'
+const element = <h1>Hello,{name}</h1>;
 ```
+## 在JSX中使用表达式
+- JSX本身也是表达式
+  ```
+  const element = <h1>Hello world</h1>;
+  ```
+- 在属性中使用表达式
+  ```
+  <Mycomponent foo={1+2+3+4}/>
+  ```
+- 延展属性
+  ```
+  const props = {firstName:'Ben',lastName:'Hector'};
+  const greeting = <Greeting {...props} />
+  ```
+- 表达式作为子元素
+  ```
+  const element = <li>{props.message}</li>;
+  ```
+
+## 约定：自定义组件以大写字母开头
+1. React认为小写的tag是原生DOM节点,如div  
+2. 大写字母开头为自定义组件
+3. JSX标记可以直接使用属性语法，例如\<menu.Item />
