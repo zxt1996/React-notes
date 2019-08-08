@@ -1,37 +1,80 @@
 # 3.组件 & Props
 ## 组件
-- class
+- class（有状态组件）
 ```
-class Clock extends React.Component {
-  render() {
-    return (
-      <div>
-        <h1>Hello, world!</h1>
-        <h2>It is {this.props.date.toLocaleTimeString()}.</h2>
-      </div>
+class Liao extends React.Component{
+        render(){
+            return (
+                <div>
+                    <h2>我叫：{this.props.name}, 性别：{this.props.gender}, 我有3个学科：{this.props.colleges}</h2>
+                </div>
+            )
+        }
+    }
+
+    ReactDOM.render(
+        <Liao name="撩课" gender="女" colleges={["h5 ", "Java ", "Python"]}/>,
+        document.getElementById('app')
     );
-  }
-}
 ```
-- function
+- function（无状态组件）
 ```
-function Clock(props) {
+function Liao(){
   return (
     <div>
-      <h1>Hello, world!</h1>
-      <h2>It is {props.date.toLocaleTimeString()}.</h2>
+      <h2>zxt</h2>
+      <img src="img/logo.jpg" width="200" />
     </div>
-  );
+  )
 }
 
-function tick() {
-  ReactDOM.render(
-    <Clock date={new Date()} />,
-    document.getElementById('root')
-  );
-}
+ReactDOM.render(
+  <Liao/>,
+  document.getElementById('app')
+);
+```
+```
+function Liao(props) {
+        return (
+            <div>
+                <h2>我叫：{props.name}, 性别：{props.gender}, 我有3个学科：{props.colleges}</h2>
+                <img src="img/logo.jpg"  width="200"/>
+            </div>
+        )
+    }
 
-setInterval(tick, 1000);
+    ReactDOM.render(
+        <Liao name="撩课" gender="女" colleges={["h5 ", "Java ", "Python"]}/>,
+        document.getElementById('app')
+    );
+```
+```
+function Name(props) {
+        return <p>我叫：{props.name}</p>
+    }
+
+    function Gender(props) {
+        return <p>我叫：{props.gender}</p>
+    }
+
+    function Colleges(props) {
+        return <p>我有3个学科：{props.colleges}</p>
+    }
+
+    function Liao() {
+        return (
+            <div>
+                <Name name="itLike"/>
+                <Gender gender="女"/>
+                <Colleges colleges={["h5 ", "Java ", "Python"]}/>
+            </div>
+        )
+    }
+
+    ReactDOM.render(
+        <Liao/>,
+        document.getElementById('app')
+    );
 ```
 **注意： 组件名称必须以大写字母开头。**
 ### 将函数组件转换成 class 组件
