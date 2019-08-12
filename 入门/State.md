@@ -53,3 +53,7 @@ componentDidMount(){
     }
 }
 ```
+## state与prop
+- prop是组件的对外接口，state是组件的内部状态，对外用prop,内部用state。
+- prop的赋值在外部世界使用组件时，state的赋值在组件内部
+- 组件不应该改变prop的值，而state存在的目的就是让组件来改变的。
