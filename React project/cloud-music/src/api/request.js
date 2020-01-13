@@ -9,3 +9,16 @@ export const getBanner = () => {
 export const getRecommendlist = () => {
     return axiosInstance.get("/personalized");
 }
+
+//获取歌手分类列表
+export const getSongerlist = (cat,initial) => {
+    if(!cat && !initial){
+        return axiosInstance.get("/artist/list");
+    }else if(cat && !initial){
+        let temp = "/artist/list?cat=" + cat;
+        return axiosInstance.get(temp);
+    }else{
+        let temp = "/artist/list?cat=" + cat + "&initial=" + initial;
+        return axiosInstance.get(temp);
+    }
+}
