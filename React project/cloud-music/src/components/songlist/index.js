@@ -1,31 +1,60 @@
 import React,{useEffect,useContext,useState} from 'react';
 import {List,Listitem} from './style';
-import {Myusecontext} from '../../store/context';
-import {getSongdetail} from '../../api/request';
+import {Myusecontext,Playcontent} from '../../store/context';
+import {getSongdetail,playurl} from '../../api/request';
 
 function Songlist(){
     const nowdata = useContext(Myusecontext);
+    const {state,dispatch} = useContext(Playcontent);
     const [songdetail, setsongdetail] = useState([]);
+
+    //点击歌单列表
+    let whether = (who) => {
+        dispatch({
+            type:"PLAYWHO",
+            data:{
+                'playing':!state['playing'],
+                'currentIndex':who,
+                'hasbottom':true
+            }
+        });
+
+        dispatch({
+            type:"PRIVILEGES",
+            data:songdetail
+        });
+
+        setTimeout(()=>{
+            let bptemp = document.getElementsByClassName('bottompaly');
+            bptemp[0].style.display = 'flex';
+            console.log(state);
+        },0)
+    }
 
     useEffect(() => {
         if(nowdata){
             let temp = [];
+            let songpalyid = [];
             nowdata.privileges.map((el)=>{
                 getSongdetail(el.id).then((res)=>{
                     temp.push(res);
+                    songpalyid.push(playurl(res.songs[0].id));
                     if(temp.length === nowdata.privileges.length){
                         setsongdetail(temp);
+                        dispatch({
+                            type:"PLAYLIST",
+                            data:songpalyid
+                        });
                     }
                 })
-            })
-            console.log(songdetail)
+            });
         }
     }, [nowdata,songdetail.length]);
     return (
         <List>
            {songdetail ? (
                songdetail.map((el,index)=>(
-                   <Listitem key={el.songs[0].id}>
+                   <Listitem key={el.songs[0].id} onClick={()=>whether(index)}>
                        <div>
                             <div>
                                 {index+1}

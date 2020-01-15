@@ -34,3 +34,9 @@ export const getSongdetail = (ids) => {
     let data = `/song/detail?ids=${ids}`;
     return axiosInstance.get(data);
 }
+
+//歌曲播放url
+export const playurl = (id) => {
+    let data = `https://music.163.com/song/media/outer/url?id=${id}.mp3`;
+    return data;
+}
