@@ -22,3 +22,15 @@ export const getSongerlist = (cat,initial) => {
         return axiosInstance.get(temp);
     }
 }
+
+//获取歌单详情
+export const getplaylistdetail = (uid) => {
+    let data = `/playlist/detail?id=${uid}`;
+    return axiosInstance.get(data);
+}
+
+//获取歌曲详情
+export const getSongdetail = (ids) => {
+    let data = `/song/detail?ids=${ids}`;
+    return axiosInstance.get(data);
+}

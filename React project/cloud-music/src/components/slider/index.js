@@ -5,19 +5,25 @@ import {SliderContent} from './style';
 
 function Slider(props){
     let {mybanner} = props;
+    const [mybanners, setmybanners] = useState('');
+
+    useEffect(() => {
+        if(mybanner){
+            console.log(mybanner);
+            setmybanners(mybanner);
+        }
+    }, [mybanner]);
 
     return (
         <SliderContent>
             <div className="before"></div>
             <Carousel autoplay>
-                {
-                    mybanner.map((res)=>(
-                        <div key={res.targetId}
-                            className="banner">
-                            <img src={res.imageUrl}></img>
-                        </div>
-                    ))
-                }
+                { mybanner ? mybanner.map((res)=> (
+                    <div key={res.targetId}
+                        className="banner">
+                        <img src={res.imageUrl}></img>
+                    </div>
+                )) : <div></div>}
             </Carousel>
         </SliderContent>
     )

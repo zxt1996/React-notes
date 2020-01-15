@@ -5,7 +5,10 @@ import {Top,
         TabItem,
         Homepage} from './style';
 //利用NavLink组件进行路由跳转
-import {NavLink} from 'react-router-dom';
+import {NavLink,Route,Switch,Redirect} from 'react-router-dom';
+import Recommend from '../../application/Recommend';
+import Singers from '../../application/Singers';
+import Rank from '../../application/Rank';
 
 function Home(props){
     const {route} = props;
@@ -27,7 +30,15 @@ function Home(props){
                     <TabItem><span>排行榜</span></TabItem>
                 </NavLink>
             </Tab>
-            {renderRoutes(route.routes)}
+            {/* {renderRoutes(route.routes)} */}
+            <Switch>
+                <Route path="/" exact={true} render={() => (
+                            <Redirect to={"/recommend"}/>
+                        )}/>
+                <Route path="/recommend" component={Recommend}/>
+                <Route path="/singers" component={Singers}/>
+                <Route path="/rank" component={Rank}/>
+            </Switch>
         </Homepage>
     )
 }

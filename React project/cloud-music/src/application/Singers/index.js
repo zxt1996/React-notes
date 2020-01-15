@@ -8,6 +8,7 @@ import Esingerlist from '../../components/singerlist';
 import {reducer} from '../../store/reducer';
 import {buswhosinger} from '../../store/index';
 import Scroll from '../../baseUI/scroll/index';
+import {forceCheck} from 'react-lazyload';
 
 function Singers(){
     //将初始数据作为第二个参数传入 useReducer 
@@ -37,7 +38,7 @@ function Singers(){
                 aboutclass="navtwo"/>
             </Navcontent>
             <ListContainer>
-                <Scroll>
+                <Scroll onScroll={forceCheck}>
                     <Esingerlist aboutsinger={singerlist}/>
                 </Scroll>
             </ListContainer>

@@ -1,5 +1,6 @@
 import React,{useEffect} from 'react';
 import {Singerlist,Singeritem} from './style';
+import LazyLoad from 'react-lazyload';
 
 function Esingerlist(props){
     const {aboutsinger} = props;
@@ -19,7 +20,9 @@ function Esingerlist(props){
                 aboutsinger.map((res)=>(
                     <Singeritem key={res.img1v1Id} className="singerlisthei">
                         <div>
-                            <img src={res.img1v1Url}></img>
+                            <LazyLoad placeholder={<img width="100%" height="100%" src={require('./music.png')}/>}>
+                                <img src={`${res.img1v1Url}?param=300x300`}></img>
+                            </LazyLoad>
                         </div>
                         <div>
                             {res.name}

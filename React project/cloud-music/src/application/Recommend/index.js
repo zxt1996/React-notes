@@ -13,7 +13,10 @@ function Recommend(){
     useEffect(() => {
         const fetchData = async () => {
             const result = await getBanner();
-            setmybanner(result.banners);
+            console.log(result);
+            if(result){
+                setmybanner(result.banners);
+            }
         };
 
         fetchData();
@@ -22,7 +25,9 @@ function Recommend(){
     useEffect(() => {
         const fetchData = async () => {
             const result = await getRecommendlist();
-            setdayrecommend(result.result);
+            if(result){
+                setdayrecommend(result.result);
+            }
         };
 
         fetchData();
@@ -36,6 +41,7 @@ function Recommend(){
                     <DayRecommend dayrecommend={dayrecommend}/>
                 </div>
            </Scroll>
+           {/* { renderRoutes(route.routes) } */}
        </Content>
     )
 }
