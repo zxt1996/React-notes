@@ -7,6 +7,7 @@ import {BrowserRouter,Route,Switch} from 'react-router-dom';
 import 'antd/dist/antd.css';
 import Home from './application/Home';
 import Album from './application/Album';
+import PlayScreen from './application/Playscreen';
 import Playbottom from './components/playbottom';
 import {playlistdetail} from './store/index';
 import {Playcontent} from './store/context';
@@ -23,6 +24,7 @@ function App(){
                 {/* {renderRoutes(routes)} */}
                 <Switch>
                     <Route path="/recommend/:id" component={Album}/>
+                    <Route path="/playscreen" component={PlayScreen}/>
                     {/* path="/"的需要放在最下面才能正常加载 */}
                     <Route path="/" component={Home}/>
                 </Switch>

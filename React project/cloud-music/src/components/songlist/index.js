@@ -8,12 +8,12 @@ function Songlist(){
     const {state,dispatch} = useContext(Playcontent);
     const [songdetail, setsongdetail] = useState([]);
 
+    const audio = document.getElementById('audio');
     //点击歌单列表
     let whether = (who) => {
         dispatch({
             type:"PLAYWHO",
             data:{
-                'playing':!state['playing'],
                 'currentIndex':who,
                 'hasbottom':true
             }
@@ -24,10 +24,17 @@ function Songlist(){
             data:songdetail
         });
 
+        dispatch({
+            type:"PLAYING",
+            data:state['playing']
+        });
+
         setTimeout(()=>{
             let bptemp = document.getElementsByClassName('bottompaly');
             bptemp[0].style.display = 'flex';
             console.log(state);
+            let temp = state.playList[state.currentIndex];
+            audio.src = temp;
         },0)
     }
 
@@ -38,7 +45,9 @@ function Songlist(){
             nowdata.privileges.map((el)=>{
                 getSongdetail(el.id).then((res)=>{
                     temp.push(res);
-                    songpalyid.push(playurl(res.songs[0].id));
+                    if(res){
+                        songpalyid.push(playurl(res.songs[0].id));
+                    }
                     if(temp.length === nowdata.privileges.length){
                         setsongdetail(temp);
                         dispatch({
@@ -54,35 +63,37 @@ function Songlist(){
         <List>
            {songdetail ? (
                songdetail.map((el,index)=>(
-                   <Listitem key={el.songs[0].id} onClick={()=>whether(index)}>
-                       <div>
-                            <div>
-                                {index+1}
-                            </div>
-                            <div>
-                                <div>
-                                    {el.songs[0].name}
-                                </div>
-                                <div>
-                                    <span>
-                                        {el.songs[0].ar[0].name}
-                                    </span>
-                                    <span>-</span>
-                                    <span>
-                                        {el.songs[0].al.name}
-                                    </span>
-                                </div>
-                            </div>
-                       </div>
-                       <div>
-                            <div>
-                                <i className="iconfont icon-play"></i>
-                            </div>
-                            <div>
-                                <i className="iconfont icon-msnui-more"></i>
-                            </div>
-                       </div>
-                   </Listitem>
+                   (
+                    el ? <Listitem key={el.songs[0].id} onClick={()=>whether(index)}>
+                                    <div>
+                                        <div>
+                                            {index+1}
+                                        </div>
+                                        <div>
+                                            <div>
+                                                {el.songs[0].name}
+                                            </div>
+                                            <div>
+                                                <span>
+                                                    {el.songs[0].ar[0].name}
+                                                </span>
+                                                <span>-</span>
+                                                <span>
+                                                    {el.songs[0].al.name}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div>
+                                            <i className="iconfont icon-play"></i>
+                                        </div>
+                                        <div>
+                                            <i className="iconfont icon-msnui-more"></i>
+                                        </div>
+                                    </div>
+                                </Listitem> : null
+                   )
                ))
            ) : <div>1</div>}
         </List>

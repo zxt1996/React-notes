@@ -14,10 +14,10 @@ export const Play = styled.div`
     padding:0 15px;
     >div:first-of-type{
         display:flex;
-        width:350px;
+        width:300px;
         >div:first-of-type{
-            height: 60px;
-            width:20%;
+            height: 50px;
+            width:50px;
             margin-right:5px;
             >img{
                 width:100%;
@@ -35,8 +35,7 @@ export const Play = styled.div`
         }
     }
     >div:last-of-type{
-
-        >span:first-of-type{
+        >span{
             margin-right:10px;
         }
     }

@@ -76,7 +76,6 @@ export const nowplaysongreducer = (palydetail,action) => {
         return Object.assign({},palydetail,{'hasbottom':action.data});
     }else if(action.type === 'PLAYWHO'){
         palydetail['currentIndex'] = action.data['currentIndex'];
-        palydetail['playing'] = action.data['playing'];
         palydetail['hasbottom'] = action.data['hasbottom'];
         return Object.assign({},palydetail);
     }else if(action.type === 'PRIVILEGES'){
