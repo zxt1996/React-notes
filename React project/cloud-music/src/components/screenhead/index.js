@@ -8,7 +8,7 @@ function Screenhead(props){
     let back = () => {
         history.goBack();
         let bottompaly = document.getElementsByClassName('bottompaly');
-        bottompaly[0].style.display = 'flex';
+        bottompaly[0].style.visibility = 'initial';
     }
 
     return (

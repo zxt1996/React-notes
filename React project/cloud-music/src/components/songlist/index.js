@@ -31,10 +31,10 @@ function Songlist(){
 
         setTimeout(()=>{
             let bptemp = document.getElementsByClassName('bottompaly');
-            bptemp[0].style.display = 'flex';
+            if(bptemp){
+                bptemp[0].style.display = 'flex';
+            }
             console.log(state);
-            let temp = state.playList[state.currentIndex];
-            audio.src = temp;
         },0)
     }
 
@@ -59,6 +59,7 @@ function Songlist(){
             });
         }
     }, [nowdata,songdetail.length]);
+
     return (
         <List>
            {songdetail ? (

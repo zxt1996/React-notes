@@ -15,7 +15,7 @@ function Playbottom(){
     let topalyscreen = () => {
         history.push('/playscreen');
         let bottompaly = document.getElementsByClassName('bottompaly');
-        bottompaly[0].style.display = 'none';
+        bottompaly[0].style.visibility = 'hidden';
     }
     //收起底部的播放器
     let noplay = () => {
@@ -29,7 +29,7 @@ function Playbottom(){
             data:!state['playing']
         })
     }
-    //下一首
+    //当前歌曲在播放列表的索引位置置为下一首
     let nextsong = () => {
         if(state['currentIndex'] < state.playList.length){
             dispatch({
@@ -43,7 +43,22 @@ function Playbottom(){
             })
        }
     }
-    //点击列表中其他歌曲时保持当前的播放暂停状态
+    //跳到上一首
+    let clickback = () => {
+        if(state['currentIndex'] === 0){
+            dispatch({
+                type:'CURRENTINDEX',
+                data:state.playList.length - 1
+            })
+       }else{
+            dispatch({
+                type:'CURRENTINDEX',
+                data:state['currentIndex'] - 1
+            })
+       }
+    }
+
+    //点击歌单列表时保持当前的播放或暂停状态
     useEffect(() => {
         if(state.privileges[state.currentIndex]){
             setnowsong(state.privileges[state.currentIndex].songs[0]);
@@ -55,20 +70,22 @@ function Playbottom(){
                 }
             },0)
         }
-    }, [state,state['playing'],state.currentIndex]);
+    }, [state,state['playing']]);
 
     useEffect(() => {
         //播放结束时直接播放下一首
         //加上if判断防止audio还没被加载完成时该语句出错
         if(audio){
-            audio.addEventListener('ended',()=>{
-               console.log(state['currentIndex']);
-               if(state['currentIndex'] !== -1){
-                    nextsong();
-               }
-            })
+            audio.addEventListener('ended',nextsong);
             let temp = state.playList[state.currentIndex];
             audio.src = temp;
+            console.log(state['currentIndex']);
+        }
+        return () => {
+            if(audio){
+                //及时清除监听器，防止对后续产生影响
+                audio.removeEventListener('ended',nextsong);
+            }
         }
     }, [state['currentIndex']]);
 
@@ -90,14 +107,14 @@ function Playbottom(){
                 }
             </div>
             <div>
-                <span><i className="iconfont icon-left"></i></span>
+                <span onClick={()=>clickback()}><i className="iconfont icon-left"></i></span>
                 <span onClick={()=>whetherpaly()}>
                     {state['playing'] ? 
                         <i className="iconfont icon-pause"></i>
                         : <i className="iconfont icon-play1"></i>
                     }
                 </span>
-                <span><i className="iconfont icon-arrow-right"></i></span>
+                <span onClick={()=>nextsong()}><i className="iconfont icon-arrow-right"></i></span>
                 <span><i className="iconfont icon-gengduo1"></i></span>
             </div>
             <audio id="audio"/>
