@@ -9,3 +9,10 @@ export const getCount = (count) => {
       return Math.floor (count / 10000000)/ 10 + "亿";
     }
   }
+
+//转换歌曲时长时间戳
+export const changetime = (dt) => {
+  let mytime = new Date(dt);
+  let result = mytime.getMinutes() + ':' + mytime.getSeconds();
+  return result;
+}

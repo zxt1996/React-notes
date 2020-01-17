@@ -4,6 +4,7 @@ import {Playcontent} from '../../store/context';
 import Screenhead from '../../components/screenhead';
 import ScreenMid from '../../components/screenmid';
 import ScreenFooter from '../../components/screenfooter';
+import ProgressWrapper from '../../components/progresswrapper';
 
 function PlayScreen(){
     const {state,dispatch} = useContext(Playcontent);
@@ -20,6 +21,7 @@ function PlayScreen(){
         <Screen>
             {temp.ar ? <Screenhead songname={temp.name} creator={temp.ar[0].name}/> : null}
             {temp.al ? <ScreenMid songimg={temp.al.picUrl}/> : null}
+            {temp.dt ? <ProgressWrapper dt={temp.dt}/> : null}
             {temp ? <ScreenFooter whether={state.playing}/> : null}
         </Screen>
     )

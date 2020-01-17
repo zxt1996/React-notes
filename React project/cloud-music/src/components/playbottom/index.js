@@ -1,4 +1,4 @@
-import React,{useEffect,useContext,useState} from 'react';
+import React,{useEffect,useContext,useState,useRef} from 'react';
 import {Play} from './style';
 // import {playlistdetail} from '../../store/index';
 import {Playcontent} from '../../store/context';
@@ -9,6 +9,7 @@ function Playbottom(){
     const [nowsong, setnowsong] = useState(null);
 
     const audio = document.getElementById('audio');
+    const myaudio = useRef();
 
     const history = useHistory();
     //切换为大屏
@@ -117,7 +118,7 @@ function Playbottom(){
                 <span onClick={()=>nextsong()}><i className="iconfont icon-arrow-right"></i></span>
                 <span><i className="iconfont icon-gengduo1"></i></span>
             </div>
-            <audio id="audio"/>
+            <audio id="audio" ref={myaudio}/>
         </Play>
     )
 }
