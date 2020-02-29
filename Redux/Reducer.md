@@ -133,3 +133,48 @@ let newItem = Object.keys(item).reduce((obj,key) => {
     return obj
 },{})
 ```
+
+### 深拷贝工具函数
+
+```
+const type = obj => {
+    let toString = Object.prototype.toString;
+    let map = {
+        '[object Array]' : 'array',
+        '[object Object]' : 'object'
+    };
+    return map[toString.call(obj)]
+}
+
+const deepClone = data => {
+    //先使用type函数进行数据类型判断
+    let t = type(data);
+    let o;
+    let i;
+    let length;
+
+    if(t === 'array'){
+        //数据类型，新建数组
+        o = [];
+    }else if(t === 'object'){
+        //对象类型，新建对象
+        o = {};
+    }else{
+        //基本类型数据类型的值是不可变的，直接返回
+        return data;
+    }
+
+    if(t === 'array'){
+        for(let i = 0,length = data.length;i<length;i++){
+            o.push(deepClone(data[i]));
+        }
+        return o;
+    }
+    else if(t === 'object'){
+        for(let i in data){
+            o[i] = deepClone(data[i]);
+        }
+        return o;
+    }
+}
+```
